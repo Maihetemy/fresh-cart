@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import style from "./Layout.module.css";
+import Navbar from "./../Navbar/Navbar";
+import Footer from "./../Footer/Footer";
+import { Outlet } from "react-router-dom";
 export default function Layout() {
-  const [counter, setCounter] = useState(0);
-  useEffect(() => {}, []);
+  // const [counter, setCounter] = useState(0);
+  // useEffect(() => {}, []);
   return (
     <>
-      <h1>Layout</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure obcaecati
-        quasi minus beatae inventore iste, a sunt natus totam impedit. Pariatur,
-        aut harum. Vitae, unde eveniet maiores provident quasi minus!
-      </p>
+      <Navbar />
+      <div className="pt-14">
+        <Outlet></Outlet>
+      </div>
+      <Footer />
     </>
   );
 }

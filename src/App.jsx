@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
+import Home from "./components/Home/Home";
+import Cart from "./components/Cart/Cart";
+import Login from "./components/login/login";
+import Register from "./components/register/register";
+import About from "./components/About/About";
+import Brands from "./components/brands/brands";
+import NotFound from './components/NotFound/NotFound';
+import Products from './components/Products/Products';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className='bg-black'>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  let router = createBrowserRouter([
+    {
+      path: "",
+      element: <Layout />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: "brands", element: <Brands /> },
+        { path: "products", element: <Products /> },
+        { path: "brands", element: <Brands /> },
+        { path: "about", element: <About /> },
+        { path: "cart", element: <Cart /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+        { path: "*", element: <NotFound/> },
+      ],
+    }
+  ]);
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
-export default App
+export default App;
