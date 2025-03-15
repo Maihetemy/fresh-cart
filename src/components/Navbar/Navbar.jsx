@@ -1,32 +1,63 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { uuseEffect, useState, useContext } from "react";
 import style from "./Navbar.module.css";
 import logo from "../../assets/imgs/freshcart-logo.svg";
-import { NavLink } from "react-router-dom";
-import Register from './../register/register';
+import { NavLink, useNavigate } from "react-router-dom";
+import Register from "./../register/register";
+import { userTokenContext } from "../../context/UserContext";
+
 export default function Navbar() {
-  const [counter, setCounter] = useState(0);
-  useEffect(() => {}, []);
+  let { userToken, setUserToken } = useContext(userTokenContext);
+  let navigator = useNavigate();
+  function logout() {
+    localStorage.removeItem("token");
+    setUserToken(null);
+    navigator("/login");
+    console.log("i'm logout function");
+    
+  }
   return (
     <>
       <nav className="fixed top-0 right-0 left-0 p-2 shadow-md bg-main-light flex justify-between items-center">
-        <div className="flex" >
+        <div className="flex">
           <img src={logo} width={150} alt="" />
-          <ul className="flex ms-4">
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/'}>Home</NavLink> </li>
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/cart'}>Cart</NavLink></li>
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/about'}>About</NavLink> </li>
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/brands'}>Brands</NavLink></li>
-          </ul> 
+          {userToken ? (
+            <ul className="flex ms-4">
+              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                <NavLink to={"/"}>Home</NavLink>{" "}
+              </li>
+              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                <NavLink to={"/cart"}>Cart</NavLink>
+              </li>
+              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                <NavLink to={"/about"}>About</NavLink>{" "}
+              </li>
+              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                <NavLink to={"/brands"}>Brands</NavLink>
+              </li>
+              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                <NavLink to={"/brands"}>Brands</NavLink>
+              </li>
+            </ul>
+          ) : null}
         </div>
-        <div className="" >
-        <ul className="flex ms-4">
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/register'}>Register</NavLink> </li>
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/login'}>Login</NavLink></li>
-            <li className="mx-2 flex items-center text-sm text-slate-950 font-normal"><NavLink to={'/brands'}>Brands</NavLink>
-            
-            </li>
-          </ul> 
+        <div className="">
+          <ul className="flex ms-4">
+            {userToken ? (
+              <li onClick={logout} className="mx-2 flex items-center text-sm text-slate-950 font-normal cursor-pointer">
+                Logout
+              </li>
+            ) : (
+              <>
+                <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                  <NavLink to={"/register"}>Register</NavLink>{" "}
+                </li>
+                <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                  <NavLink to={"/login"}>Login</NavLink>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </nav>
     </>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -8,8 +9,10 @@ import Login from "./components/login/login";
 import Register from "./components/register/register";
 import About from "./components/About/About";
 import Brands from "./components/brands/brands";
-import NotFound from './components/NotFound/NotFound';
-import Products from './components/Products/Products';
+import NotFound from "./components/NotFound/NotFound";
+import Products from "./components/Products/Products";
+import CounterContextProvider from "./context/UserContext";
+import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
 
 function App() {
   let router = createBrowserRouter([
@@ -17,19 +20,21 @@ function App() {
       path: "",
       element: <Layout />,
       children: [
-        { index: true, element: <Home /> },
-        { path: "brands", element: <Brands /> },
-        { path: "products", element: <Products /> },
-        { path: "brands", element: <Brands /> },
-        { path: "about", element: <About /> },
-        { path: "cart", element: <Cart /> },
+        { index: true, element: <ProtectedRouter><Home /> </ProtectedRouter> },
+        { path: "brands", element: <ProtectedRouter> <Brands /></ProtectedRouter> },
+        { path: "products", element:<ProtectedRouter> <Products /></ProtectedRouter> },
+        { path: "brands", element:<ProtectedRouter><Brands /></ProtectedRouter>  },
+        { path: "about", element: <ProtectedRouter><About /></ProtectedRouter> },
+        { path: "cart", element:<ProtectedRouter> <Cart /></ProtectedRouter> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "*", element: <NotFound/> },
+        { path: "*", element: <NotFound /> },
       ],
-    }
+    },
   ]);
-  return <RouterProvider router={router}></RouterProvider>;
+  return <CounterContextProvider>
+    <RouterProvider router={router}></RouterProvider>;
+  </CounterContextProvider>;
 }
 
 export default App;
