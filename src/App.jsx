@@ -10,9 +10,10 @@ import Register from "./components/register/register";
 import About from "./components/About/About";
 import Brands from "./components/brands/brands";
 import NotFound from "./components/NotFound/NotFound";
-import Products from "./components/Products/Products";
 import CounterContextProvider from "./context/UserContext";
 import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+import Product from "./components/Product/Product";
 
 function App() {
   let router = createBrowserRouter([
@@ -22,9 +23,10 @@ function App() {
       children: [
         { index: true, element: <ProtectedRouter><Home /> </ProtectedRouter> },
         { path: "brands", element: <ProtectedRouter> <Brands /></ProtectedRouter> },
-        { path: "products", element:<ProtectedRouter> <Products /></ProtectedRouter> },
         { path: "brands", element:<ProtectedRouter><Brands /></ProtectedRouter>  },
         { path: "about", element: <ProtectedRouter><About /></ProtectedRouter> },
+        { path: "productDetails/:category/:id", element: <ProtectedRouter><ProductDetails /></ProtectedRouter> },
+        { path: "product/:category/:id", element: <ProtectedRouter><Product /></ProtectedRouter> },
         { path: "cart", element:<ProtectedRouter> <Cart /></ProtectedRouter> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
