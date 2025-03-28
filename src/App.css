@@ -4,3 +4,25 @@
   padding: 2rem;
   text-align: center;
 }
+.slick-prev:before, .slick-next:before{
+  color: black !important;
+}
+nav{
+  z-index: 9999;
+}
+.slick-track
+{
+    display: flex !important;
+}
+
+.slick-slide
+{
+    height: inherit !important;
+}
+.slick-slide
+{
+    margin-bottom: 0;
+    object-fit: cover;
+}
+.category-image{height: 200px;
+width: 100%;}
