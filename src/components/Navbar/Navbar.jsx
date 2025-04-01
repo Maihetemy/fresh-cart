@@ -109,6 +109,9 @@ export default function Navbar() {
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/brands"}>Brands</NavLink>
                     </li>
+                    <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
+                      <NavLink to={"/products"}>Products</NavLink>
+                    </li>
                   </div>
                 ) : null}
               </div>

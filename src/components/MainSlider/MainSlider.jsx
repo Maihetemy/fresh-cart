@@ -5,19 +5,17 @@ import Slider from "react-slick";
 import mainImg1 from "../../assets/imgs/slider/slider-image-3.jpeg";
 import mainImg2 from "../../assets/imgs/slider/slider-image-1.jpeg";
 import axios from "axios";
+import useCategories from "../../Hooks/useCategories";
+
 export default function MainSlider() {
   const [categoryList, setCategoryList] = useState([]);
-  function getCategory() {
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/categories")
-      .then(({ data }) => {
-        setCategoryList(data.data);
-        console.log(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  let { data } = useCategories();
+  useEffect(() => {
+    if (data) {
+      setCategoryList(data);
+      console.log(data);
+    }
+  }, [data]);
   var settings = {
     dots: false,
     arrows: false,
@@ -28,9 +26,7 @@ export default function MainSlider() {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  useEffect(() => {
-    getCategory();
-  }, []);
+
   return (
     <>
       <div className="row flex justify-center ">

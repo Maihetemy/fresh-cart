@@ -4,10 +4,17 @@ import style from "./CategoriesSlider.module.css";
 import Slider from "react-slick";
 import axios from "axios";
 import Categories from "./../Categories/Categories";
+import useCategories from "./../../Hooks/useCategories";
 
 export default function CategoriesSlider() {
   const [categoryList, setCategoryList] = useState([]);
-
+  let { data } = useCategories();
+  useEffect(() => {
+    if (data) {
+      setCategoryList(data);
+      console.log(data);
+    }
+  }, [data]);
   var settings = {
     dots: true,
     infinite: true,
@@ -43,25 +50,15 @@ export default function CategoriesSlider() {
       },
     ],
   };
-  function getCategory() {
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/categories")
-      .then(({ data }) => {
-        setCategoryList(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  useEffect(() => {
-    getCategory();
-  }, []);
+
   return (
     <div className="">
-      <h1 className="text-start font-bold text-xl my-3">Shop Popular Categories</h1>
+      <h1 className="text-start font-bold text-xl my-3">
+        Shop Popular Categories
+      </h1>
       <div className="mb-20">
         <Slider {...settings}>
-          {categoryList.map((category) => (
+          {categoryList?.map((category) => (
             <div key={category._id} className="">
               <img
                 className="category-image"

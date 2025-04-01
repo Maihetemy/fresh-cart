@@ -14,29 +14,88 @@ import CounterContextProvider from "./context/UserContext";
 import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Product from "./components/Product/Product";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Products from "./components/products/products";
 function App() {
+  const client = new QueryClient();
   let router = createBrowserRouter([
     {
       path: "",
       element: <Layout />,
       children: [
-        { index: true, element: <ProtectedRouter><Home /> </ProtectedRouter> },
-        { path: "brands", element: <ProtectedRouter> <Brands /></ProtectedRouter> },
-        { path: "brands", element:<ProtectedRouter><Brands /></ProtectedRouter>  },
-        { path: "about", element: <ProtectedRouter><About /></ProtectedRouter> },
-        { path: "productDetails/:category/:id", element: <ProtectedRouter><ProductDetails /></ProtectedRouter> },
-        { path: "product/:category/:id", element: <ProtectedRouter><Product /></ProtectedRouter> },
-        { path: "cart", element:<ProtectedRouter> <Cart /></ProtectedRouter> },
+        {
+          index: true,
+          element: (
+            <ProtectedRouter>
+              <Home />{" "}
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "brands",
+          element: (
+            <ProtectedRouter>
+              {" "}
+              <Brands />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "about",
+          element: (
+            <ProtectedRouter>
+              <About />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "products",
+          element: (
+            <ProtectedRouter>
+              <Products />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "productDetails/:category/:id",
+          element: (
+            <ProtectedRouter>
+              <ProductDetails />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "product/:category/:id",
+          element: (
+            <ProtectedRouter>
+              <Product />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "cart",
+          element: (
+            <ProtectedRouter>
+              {" "}
+              <Cart />
+            </ProtectedRouter>
+          ),
+        },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "*", element: <NotFound /> },
       ],
     },
   ]);
-  return <CounterContextProvider>
-    <RouterProvider router={router}></RouterProvider>;
-  </CounterContextProvider>;
+  return (
+    <QueryClientProvider client={client}>
+      <CounterContextProvider>
+        <RouterProvider router={router}></RouterProvider>
+        <ReactQueryDevtools />
+      </CounterContextProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

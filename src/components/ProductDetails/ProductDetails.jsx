@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import useProductDetails from "../../Hooks/useProductDetails";
 
 export default function ProductDetails() {
   let { id } = useParams();
@@ -16,13 +17,7 @@ export default function ProductDetails() {
     slidesToScroll: 1,
     arrows: false,
   };
-  // var relatedProductsSliderSettings = {
-  //   slidesToShow: 3,
-  //   slidesToScroll: 2,
-  // };
-
   let [productDetails, setProductDetails] = useState(null);
-  // const [relatedProductsList, setRelatedProductsList] = useState([]);
   function GetProductDetails(id) {
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
@@ -32,21 +27,10 @@ export default function ProductDetails() {
       })
       .catch(() => {});
   }
-  // function getRelatedProducts(category) {
-  //   axios
-  //     .get("https://ecommerce.routemisr.com/api/v1/products")
-  //     .then(({ data }) => {
-  //       let filteredProductsList = data.data.filter(
-  //         (product) => product.category?.name === category
-  //       );
-
-  //       setRelatedProductsList(filteredProductsList);
-  //     })
-  //     .catch((error) => {});
-  // }
+  // let { data } = useProductDetails((id = { id }));
   useEffect(() => {
     GetProductDetails(id);
-    // getRelatedProducts(category);
+    // setProductDetails(data?.data?.data);
   }, [id]);
 
   return (

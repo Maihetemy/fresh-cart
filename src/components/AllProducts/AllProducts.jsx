@@ -5,27 +5,25 @@ import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ProductDetails from "../ProductDetails/ProductDetails";
+import useProducts from "./../../Hooks/useProducts";
 export default function AllProducts() {
   const [productsList, setProductsList] = useState([]);
-  function GetAllProducts() {
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/products")
-      .then(({ data }) => {
-        console.log(data);
-        setProductsList(data.data);
-        // console.log(typeof(data.data.product.category.name));
-      })
-      .catch((error) => {});
-  }
+  let { data, isLoading, isError, error } = useProducts();
   useEffect(() => {
-    GetAllProducts();
-  }, []);
+    if (data) {
+      setProductsList(data?.data?.data);
+    }
+  }, [data]);
+  console.log(productsList);
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-        {productsList.map((product) => {
+        {productsList?.map((product) => {
           return (
-            <Link key={product.id} to={`/product/${product.category.name}/${product.id}`}>
+            <Link
+              key={product.id}
+              to={`/product/${product.category.name}/${product.id}`}
+            >
               <div className="p-2">
                 <div className="h-full flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                   <h1>{product.category.name}</h1>

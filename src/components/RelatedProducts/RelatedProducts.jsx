@@ -5,10 +5,26 @@ import { useParams } from "react-router-dom";
 import Slider from "react-slick";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ClipLoader from "react-spinners/ClipLoader";
+import useProducts from "../../Hooks/useProducts";
 export default function RelatedProducts() {
-  let { category } = useParams();
-  const [relatedProductsList, setRelatedProductsList] = useState([]);
+  let [color, setColor] = useState("#046c4e");
+  let { data, isLoading, isError, error } = useProducts();
+  if (isError) {
+    return <h3>{error}</h3>;
+  }
+  if (isLoading) {
+    return (
+      <ClipLoader
+        className="text-green-700"
+        color={color}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
+  }
   var settings = {
     dots: true,
     infinite: true,
@@ -44,26 +60,10 @@ export default function RelatedProducts() {
       },
     ],
   };
-  function getProducts(name) {
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/products")
-      .then(({ data }) => {
-        let filteredProductsList = data.data.filter(
-          (product) => product.category?.name === name
-        );
-
-        setRelatedProductsList(filteredProductsList);
-      })
-      .catch((error) => {});
-  }
-  useEffect(() => {
-    getProducts(category);
-  }, [category]);
-
   return (
     <div className="mb-20">
       <Slider {...settings}>
-        {relatedProductsList.map((product) => (
+        {data?.data.data.map((product) => (
           <div key={product.id} className="flex justify-center">
             <Link
               key={product.id}
