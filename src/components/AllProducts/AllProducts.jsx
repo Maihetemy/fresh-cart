@@ -1,33 +1,50 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./AllProducts.module.css";
-import axios from "axios";
-import { FaStar } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import useProducts from "./../../Hooks/useProducts";
+import { cartContext } from "./../../context/CartContext";
+import { toast } from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+
 export default function AllProducts() {
   const [productsList, setProductsList] = useState([]);
-  let { data, isLoading, isError, error } = useProducts();
+  let { data } = useProducts();
+  let { addToCart } = useContext(cartContext);
   useEffect(() => {
     if (data) {
-      setProductsList(data?.data?.data);
+      setProductsList(data);
     }
   }, [data]);
-  console.log(productsList);
+  async function addToCartFun(productId) {
+    console.log(productId);
+    
+    let response = await addToCart(productId);
+    console.log(response);
+    if (response?.data?.status === "success") {
+      toast.success(response?.data?.data?.message || "Successfully toasted!");
+      console.log("done");
+    } else {
+      toast.error(response?.data?.data?.message || "Error adding to cart");
+      console.log("error");
+    }
+  }
   return (
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
         {productsList?.map((product) => {
           return (
-            <Link
+            <div
+              className="flex flex-col p-3 justify-between bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
               key={product.id}
-              to={`/product/${product.category.name}/${product.id}`}
             >
-              <div className="p-2">
-                <div className="h-full flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+              <Link to={`/product/${product.category.name}/${product.id}`}>
+                <div className=" ">
                   <h1>{product.category.name}</h1>
-                  <span href="#" className="flex justify-center">
+                  <span href="#" className="flex justify-center w-full">
                     <img
                       className="rounded-t-lg w-1/2"
                       src={product.imageCover}
@@ -51,40 +68,34 @@ export default function AllProducts() {
                       </p>
                     </div>
                     <div>
-                      <div className="flex justify-around items-center">
+                      <div className="flex justify-between items-center">
                         <p className="mb-2 text-xs font-bold text-gray-700 dark:text-gray-400">
                           {product.price} EGP
                         </p>
-                        <p className="mb-2 text-xs font-bold text-gray-700 dark:text-gray-400">
-                          {product.ratingsAverage}
-                        </p>
+                        <div className="flex">
+                          <p className="mb-2 text-xs font-bold text-gray-700 dark:text-gray-400">
+                            {product.ratingsAverage}
+                          </p>
+                          <FontAwesomeIcon
+                            icon={faStar}
+                            className="text-yellow-300 text-sm ms-1"
+                          ></FontAwesomeIcon>
+                        </div>
                       </div>
-                      <span
-                        href="#"
-                        className="inline-flex items-center px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                      >
-                        Read more
-                        <svg
-                          className="rtl:rotate-180 w-3 h-3 ms-2"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 14 10"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9"
-                          />
-                        </svg>
-                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+              <button
+                onClick={() => {
+                  console.log("Product ID:", product.id);
+                  addToCartFun(product.id);
+                }}
+                className="inline-flex justify-center items-center px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              >
+                Add To Cart
+              </button>
+            </div>
           );
         })}
       </div>

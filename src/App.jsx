@@ -10,13 +10,15 @@ import Register from "./components/register/register";
 import About from "./components/About/About";
 import Brands from "./components/brands/brands";
 import NotFound from "./components/NotFound/NotFound";
-import CounterContextProvider from "./context/UserContext";
+import UserTokenContextProvider from "./context/UserContext";
 import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Product from "./components/Product/Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Products from "./components/products/products";
+import CartContextProvider from "./context/CartContext";
+import { Toaster } from "react-hot-toast";
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -77,7 +79,6 @@ function App() {
           path: "cart",
           element: (
             <ProtectedRouter>
-              {" "}
               <Cart />
             </ProtectedRouter>
           ),
@@ -89,12 +90,15 @@ function App() {
     },
   ]);
   return (
-    <QueryClientProvider client={client}>
-      <CounterContextProvider>
-        <RouterProvider router={router}></RouterProvider>
-        <ReactQueryDevtools />
-      </CounterContextProvider>
-    </QueryClientProvider>
+    <CartContextProvider>
+      <QueryClientProvider client={client}>
+        <UserTokenContextProvider>
+          <Toaster position="bottom-right" />
+          <RouterProvider router={router}></RouterProvider>
+          <ReactQueryDevtools />
+        </UserTokenContextProvider>
+      </QueryClientProvider>
+    </CartContextProvider>
   );
 }
 

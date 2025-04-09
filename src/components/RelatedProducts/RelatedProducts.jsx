@@ -9,22 +9,55 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ClipLoader from "react-spinners/ClipLoader";
 import useProducts from "../../Hooks/useProducts";
 export default function RelatedProducts() {
+  let { category } = useParams();
+  // let [relatedProductsList, setRelatedProductsList] = useState([]);
   let [color, setColor] = useState("#046c4e");
-  let { data, isLoading, isError, error } = useProducts();
-  if (isError) {
-    return <h3>{error}</h3>;
+  // let { data, isLoading, isError, error } = useProducts();
+  // function getRelatedProduct(category) {
+  //   let products = data?.filter(
+  //     (product) => product?.category.name === category
+  //   );
+  //   console.log("category is: ", category);
+
+  //   console.log(products);
+  //   setRelatedProductsList(products);
+  // }
+
+  // useEffect(() => {
+  //   getRelatedProduct(category);
+  // }, [category]);
+
+  const [relatedProductsList, setRelatedProductsList] = useState([]);
+  function getProducts(name) {
+    axios
+      .get("https://ecommerce.routemisr.com/api/v1/products")
+      .then(({ data }) => {
+        let filteredProductsList = data.data.filter(
+          (product) => product.category?.name === name
+        );
+
+        setRelatedProductsList(filteredProductsList);
+      })
+      .catch((error) => {});
   }
-  if (isLoading) {
-    return (
-      <ClipLoader
-        className="text-green-700"
-        color={color}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    );
-  }
+  useEffect(() => {
+    getProducts(category);
+  }, [category]);
+
+  // if (isError) {
+  //   return <h3>{error}</h3>;
+  // }
+  // if (isLoading) {
+  //   return (
+  //     <ClipLoader
+  //       className="text-green-700"
+  //       color={color}
+  //       size={50}
+  //       aria-label="Loading Spinner"
+  //       data-testid="loader"
+  //     />
+  //   );
+  // }
   var settings = {
     dots: true,
     infinite: true,
@@ -63,7 +96,7 @@ export default function RelatedProducts() {
   return (
     <div className="mb-20">
       <Slider {...settings}>
-        {data?.data.data.map((product) => (
+        {relatedProductsList.map((product) => (
           <div key={product.id} className="flex justify-center">
             <Link
               key={product.id}

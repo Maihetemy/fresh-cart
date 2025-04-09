@@ -7,6 +7,7 @@ export default function useProducts() {
     queryKey: ["Products"],
     queryFn: getProducts,
     staleTime: 50000,
+    select: (data) => data.data.data,
   });
   function getProducts() {
     return axios.get("https://ecommerce.routemisr.com/api/v1/products");

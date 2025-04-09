@@ -11,7 +11,9 @@ export default function useProductDetails(id) {
     enabled: !!id,
   });
   function getProductDetails(id) {
-    return axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`).then((res) => res.data);
+    return axios
+      .get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
+      .then((res) => res.data);
   }
   return productDetails;
 }

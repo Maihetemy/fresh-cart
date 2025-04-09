@@ -1,65 +1,35 @@
 /* eslint-disable no-unused-vars */
-import React, { uuseEffect, useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import style from "./Navbar.module.css";
 import logo from "../../assets/imgs/freshcart-logo.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import Register from "./../register/register";
 import { userTokenContext } from "../../context/UserContext";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { cartContext } from "../../context/CartContext";
 export default function Navbar() {
-  let { userToken, setUserToken } = useContext(userTokenContext);
   let navigator = useNavigate();
+
+  let { userToken, setUserToken } = useContext(userTokenContext);
+  let { countNumber, getCart } = useContext(cartContext);
   function logout() {
     localStorage.removeItem("token");
     setUserToken(null);
     navigator("/login");
-    console.log("i'm logout function");
   }
+  async function getCartProducts() {
+    await getCart();
+  }
+  useEffect(() => {
+    if (userToken) {
+      console.log(userToken);
+
+      getCartProducts();
+    }
+  }, [userToken]);
   return (
     <>
-      {/* <nav className="fixed top-0 right-0 left-0 p-2 shadow-md bg-main-light flex justify-between items-center">
-        <div className="flex">
-          <img src={logo} width={150} alt="" />
-          {userToken ? (
-            <ul className="flex ms-4">
-              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                <NavLink to={"/"}>Home</NavLink>{" "}
-              </li>
-              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                <NavLink to={"/cart"}>Cart</NavLink>
-              </li>
-              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                <NavLink to={"/about"}>About</NavLink>{" "}
-              </li>
-              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                <NavLink to={"/brands"}>Brands</NavLink>
-              </li>
-              <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                <NavLink to={"/brands"}>Brands</NavLink>
-              </li>
-            </ul>
-          ) : null}
-        </div>
-        <div className="">
-          <ul className="flex ms-4">
-            {userToken ? (
-              <li onClick={logout} className="mx-2 flex items-center text-sm text-slate-950 font-normal cursor-pointer">
-                Logout
-              </li>
-            ) : (
-              <>
-                <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                  <NavLink to={"/register"}>Register</NavLink>{" "}
-                </li>
-                <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                  <NavLink to={"/login"}>Login</NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
-      </nav> */}
-
       <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-md bg-main-light fixed top-0 right-0 left-0 p-2">
         <div className="max-w-screen-xl flex flex-wrap lg:flex-nowrap items-center justify-between mx-auto p-2">
           <a
@@ -92,7 +62,10 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <div className="hidden w-full md:block lg:w-2/3 ps-24" id="navbar-default">
+          <div
+            className="hidden w-full md:block lg:w-2/3 ps-24"
+            id="navbar-default"
+          >
             <ul className="flex flex-col justify-between p-4 md:p-0 mt-4 border w-full border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <div className="main_menu">
                 {userToken ? (
@@ -117,12 +90,22 @@ export default function Navbar() {
               </div>
               <div className="security-system flex flex-col lg:flex-row">
                 {userToken ? (
-                  <li
-                    onClick={logout}
-                    className="mx-2 flex items-center text-sm text-slate-950 font-normal cursor-pointer"
-                  >
-                    Logout
-                  </li>
+                  <>
+                    <li className="cart-icon mx-5 flex items-center text-md text-slate-950 font-normal">
+                      <NavLink to={"/cart"}>
+                        <div className="">
+                          <FontAwesomeIcon icon={faCartShopping} />
+                          <p>{countNumber}</p>
+                        </div>
+                      </NavLink>
+                    </li>
+                    <li
+                      onClick={logout}
+                      className="mx-2 flex items-center text-sm text-slate-950 font-normal cursor-pointer"
+                    >
+                      Logout
+                    </li>
+                  </>
                 ) : (
                   <>
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">

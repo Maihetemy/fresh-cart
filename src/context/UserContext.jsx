@@ -10,9 +10,6 @@ export default function UserTokenContextProvider(props) {
       setUserToken(localStorage.getItem("token"));
     }
   }, []);
-
-  console.log("user token ", userToken);
-
   return (
     <>
       <userTokenContext.Provider value={{ userToken, setUserToken }}>

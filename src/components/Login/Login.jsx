@@ -38,10 +38,10 @@ export default function Login() {
     axios
       .post(`https://ecommerce.routemisr.com/api/v1/auth/signin`, formValues)
       .then((apiResponse) => {
-        navigator("/");
-        setIsLoading(false);
         setUserToken(apiResponse.data.token);
         localStorage.setItem("token", apiResponse.data.token);
+        navigator("/");
+        setIsLoading(false);
       })
       .catch((apiResponse) => {
         setIsLoading(false);
