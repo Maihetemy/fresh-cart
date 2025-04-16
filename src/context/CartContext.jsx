@@ -11,74 +11,78 @@ export default function CartContextProvider(props) {
   };
   const [countNumber, setCountNumber] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  function getCart() {
-    return axios
-      .get("https://ecommerce.routemisr.com/api/v1/cart", {
-        headers,
-      })
-      .then((response) => {
-        setCountNumber(response?.data.numOfCartItems);
-        setTotalPrice(response?.data.data.totalCartPrice);
-        console.log(totalPrice);
-        return response;
-      })
-      .catch((error) => error);
+  async function getCart() {
+    try {
+      const response = await axios
+        .get("https://ecommerce.routemisr.com/api/v1/cart", {
+          headers,
+        });
+      setCountNumber(response?.data.numOfCartItems);
+      setTotalPrice(response?.data.data.totalCartPrice);
+      console.log(totalPrice);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
-  function addToCart(productId) {
-    return axios
-      .post(
-        "https://ecommerce.routemisr.com/api/v1/cart",
-        { productId },
-        { headers }
-      )
-      .then((response) => {
-        setCountNumber(response?.data.numOfCartItems);
-        setTotalPrice(response?.data.data.totalCartPrice);
-        console.log(totalPrice);
-        return response;
-      })
-      .catch((error) => error);
+  async function addToCart(productId) {
+    try {
+      const response = await axios
+        .post(
+          "https://ecommerce.routemisr.com/api/v1/cart",
+          { productId },
+          { headers }
+        );
+      setCountNumber(response?.data.numOfCartItems);
+      setTotalPrice(response?.data.data.totalCartPrice);
+      console.log(totalPrice);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
 
-  function deleteProduct(productId) {
-    return axios
-      .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
-        headers,
-      })
-      .then((response) => {
-        setCountNumber(response?.data.numOfCartItems);
-        setTotalPrice(response?.data.data.totalCartPrice);
-        console.log(totalPrice);
-        return response;
-      })
-      .catch((error) => error);
+  async function deleteProduct(productId) {
+    try {
+      const response = await axios
+        .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
+          headers,
+        });
+      setCountNumber(response?.data.numOfCartItems);
+      setTotalPrice(response?.data.data.totalCartPrice);
+      console.log(totalPrice);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
-  function updateProduct(productId, count) {
-    return axios
-      .put(
-        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
-        { count },
-        { headers }
-      )
-      .then((response) => {
-        setCountNumber(response?.data.numOfCartItems);
-        setTotalPrice(response?.data.data.totalCartPrice);
-        console.log(totalPrice);
-        return response;
-      })
-      .catch((error) => error);
+  async function updateProduct(productId, count) {
+    try {
+      const response = await axios
+        .put(
+          `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+          { count },
+          { headers }
+        );
+      setCountNumber(response?.data.numOfCartItems);
+      setTotalPrice(response?.data.data.totalCartPrice);
+      console.log(totalPrice);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
-  function clearCart() {
-    return axios
-      .delete("https://ecommerce.routemisr.com/api/v1/cart", { headers })
-      .then((response) => {
-        setCountNumber(0);
-        setTotalPrice(0);
-        console.log(totalPrice);
-        
-        return response;
-      })
-      .catch((error) => error);
+  async function clearCart() {
+    try {
+      const response = await axios
+        .delete("https://ecommerce.routemisr.com/api/v1/cart", { headers });
+      setCountNumber(0);
+      setTotalPrice(0);
+      console.log(totalPrice);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
   return (
     <cartContext.Provider

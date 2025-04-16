@@ -71,13 +71,10 @@ export default function Navbar() {
                 {userToken ? (
                   <div className="flex flex-col lg:flex-row">
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                      <NavLink to={"/"}>Home</NavLink>{" "}
+                      <NavLink to={"/"}>Home</NavLink>
                     </li>
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                      <NavLink to={"/cart"}>Cart</NavLink>
-                    </li>
-                    <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                      <NavLink to={"/about"}>About</NavLink>{" "}
+                      <NavLink to={"/about"}>About</NavLink>
                     </li>
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/brands"}>Brands</NavLink>
@@ -85,20 +82,25 @@ export default function Navbar() {
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/products"}>Products</NavLink>
                     </li>
+                    <li className="cart-icon mx-5 flex items-center">
+                      <NavLink to={"/cart"}>
+                        <div className=" relative text-green-950">
+                          <FontAwesomeIcon
+                            icon={faCartShopping}
+                            className="text-lg"
+                          />
+                          <p className=" text-xs text-white absolute -top-1/2 -right-1/2 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
+                            {countNumber}
+                          </p>
+                        </div>
+                      </NavLink>
+                    </li>
                   </div>
                 ) : null}
               </div>
               <div className="security-system flex flex-col lg:flex-row">
                 {userToken ? (
                   <>
-                    <li className="cart-icon mx-5 flex items-center text-md text-slate-950 font-normal">
-                      <NavLink to={"/cart"}>
-                        <div className="">
-                          <FontAwesomeIcon icon={faCartShopping} />
-                          <p>{countNumber}</p>
-                        </div>
-                      </NavLink>
-                    </li>
                     <li
                       onClick={logout}
                       className="mx-2 flex items-center text-sm text-slate-950 font-normal cursor-pointer"

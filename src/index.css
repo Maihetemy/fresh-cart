@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap');
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
-/* @import "flowbite/src/themes/default"; */
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 @tailwind base;
@@ -14,6 +13,14 @@
     --shadow: rgba(145, 158, 171, .2) 0px 2px 4px -1px, rgba(145, 158, 171, .14) 0px 4px 5px 0px, rgba(145, 158, 171, .12) 0px 1px 10px 0px;
     --font-family: 'Encode Sans Expanded', sans-serif;
     --rating-color: #ffc908;
+}
+
+.row {
+    @apply flex flex-wrap;
+}
+
+.primary-btn {
+    @apply inline-flex justify-center items-center px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800
 }
 
 .active {
