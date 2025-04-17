@@ -75,7 +75,7 @@ export default function Cart() {
             {cartDetails ? (
               cartDetails?.data?.products.map((product, index) => (
                 <tr
-                  key={index}
+                  key={product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
                   <td className="p-4">

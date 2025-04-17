@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import axios from "axios";
 import Categories from "./../Categories/Categories";
 import useCategories from "./../../Hooks/useCategories";
+import { Link } from "react-router-dom";
 
 export default function CategoriesSlider() {
   const [categoryList, setCategoryList] = useState([]);
@@ -59,14 +60,14 @@ export default function CategoriesSlider() {
       <div className="mb-20">
         <Slider {...settings}>
           {categoryList?.map((category) => (
-            <div key={category._id} className="">
+            <Link key={category._id} to={`/category/${category.name}`}>
               <img
                 className="category-image"
                 src={category.image}
                 alt={category.name}
               />
               <h2 className="font-semibold text-sm my-1">{category.name}</h2>
-            </div>
+            </Link>
           ))}
         </Slider>
       </div>

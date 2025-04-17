@@ -12,13 +12,13 @@ import Brands from "./components/brands/brands";
 import NotFound from "./components/NotFound/NotFound";
 import UserTokenContextProvider from "./context/UserContext";
 import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
-import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Product from "./components/Product/Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Products from "./components/products/products";
 import CartContextProvider from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
+import Categories from "./components/Categories/Categories";
+import Category from './components/Category/Category';
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -52,18 +52,10 @@ function App() {
           ),
         },
         {
-          path: "products",
+          path: "categories",
           element: (
             <ProtectedRouter>
-              <Products />
-            </ProtectedRouter>
-          ),
-        },
-        {
-          path: "productDetails/:category/:id",
-          element: (
-            <ProtectedRouter>
-              <ProductDetails />
+              <Categories />
             </ProtectedRouter>
           ),
         },
@@ -72,6 +64,14 @@ function App() {
           element: (
             <ProtectedRouter>
               <Product />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "category/:name",
+          element: (
+            <ProtectedRouter>
+              <Category />
             </ProtectedRouter>
           ),
         },

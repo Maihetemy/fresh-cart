@@ -8,6 +8,7 @@ import { userTokenContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { cartContext } from "../../context/CartContext";
+import Categories from './../Categories/Categories';
 export default function Navbar() {
   let navigator = useNavigate();
 
@@ -80,7 +81,7 @@ export default function Navbar() {
                       <NavLink to={"/brands"}>Brands</NavLink>
                     </li>
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                      <NavLink to={"/products"}>Products</NavLink>
+                      <NavLink to={"/categories"}>Categories</NavLink>
                     </li>
                     <li className="cart-icon mx-5 flex items-center">
                       <NavLink to={"/cart"}>
