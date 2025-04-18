@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
-import { prototype } from "postcss/lib/previous-map";
 export default function ProductCardUi({ product, addToCartFun }) {
   useEffect(() => {}, []);
   return (

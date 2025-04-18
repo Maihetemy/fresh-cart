@@ -7,8 +7,6 @@ import ProductDetails from "../ProductDetails/ProductDetails";
 import useProducts from "./../../Hooks/useProducts";
 import { cartContext } from "./../../context/CartContext";
 import { toast } from "react-hot-toast";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import ProductCardUi from "./../ProductCardUI/ProductCardUI";
 
 export default function AllProducts() {
