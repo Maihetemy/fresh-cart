@@ -45,43 +45,45 @@ export default function Footer() {
             {brandLogos("-200px -5px")}
             {brandLogos("-10px -70px")}
           </div>
-          <div className="w-full md:w-1/2 flex flex-nowrap items-center justify-start md:justify-end">
-            <p className="me-2 font-semibold no-wrap-text">
+          <div className="w-full md:w-1/2 flex flex-wrap lg:flex-nowrap items-center justify-between md:justify-end">
+            <p className="me-2 font-semibold no-wrap-text ">
               Get deliveries with FreshCart
             </p>
-            <button
-              type="button"
-              className="me-1 flex items-center text-white bg-black focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            >
-              <FontAwesomeIcon
-                icon={faApple}
-                className="text-3xl pe-3"
-              ></FontAwesomeIcon>
-              <div className="flex flex-col">
-                <span className="no-wrap-text text-[.5rem]">
-                  Available on the
-                </span>
-                <span className="no-wrap-text text-md font-extrabold">
-                  App Store
-                </span>
-              </div>
-            </button>
-            <button
-              type="button"
-              className="flex text-white bg-black focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm ps-2 pe-4 py-1 dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            >
-              <img
-                className="h-[40px] me-1"
-                src={googleAppImg}
-                alt="google app"
-              />
-              <div className="flex flex-col">
-                <span className="no-wrap-text text-[.5rem]">GET IT ON</span>
-                <span className="no-wrap-text text-md font-extrabold">
-                  Google Play
-                </span>
-              </div>
-            </button>
+            <div className="flex flex-wrap md:flex-nowrap  py-3">
+              <button
+                type="button"
+                className="me-1 w-48 flex items-center text-white bg-black focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              >
+                <FontAwesomeIcon
+                  icon={faApple}
+                  className="text-3xl pe-3"
+                ></FontAwesomeIcon>
+                <div className="flex flex-col">
+                  <span className="no-wrap-text text-[.5rem]">
+                    Available on the
+                  </span>
+                  <span className="no-wrap-text text-md font-extrabold">
+                    App Store
+                  </span>
+                </div>
+              </button>
+              <button
+                type="button"
+                className="flex w-48 text-white bg-black focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm ps-2 pe-4 py-1 dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              >
+                <img
+                  className="h-[40px] me-1"
+                  src={googleAppImg}
+                  alt="google app"
+                />
+                <div className="flex flex-col">
+                  <span className="no-wrap-text text-[.5rem]">GET IT ON</span>
+                  <span className="no-wrap-text text-md font-extrabold">
+                    Google Play
+                  </span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
         <hr className="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700"></hr>

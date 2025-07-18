@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-"use client";
 import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";

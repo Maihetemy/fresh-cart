@@ -2,7 +2,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import style from "./Navbar.module.css";
 import logo from "../../assets/imgs/freshcart-logo.svg";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Register from "./../register/register";
 import { userTokenContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,13 +32,15 @@ export default function Navbar() {
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-md bg-main-light fixed top-0 right-0 left-0 p-2">
-        <div className="max-w-screen-xl flex flex-wrap lg:flex-nowrap items-center justify-between mx-auto p-2">
-          <a
-            href="https://flowbite.com/"
+        <div className="max-w-screen-xl  flex flex-wrap md:flex-nowrap items-center justify-between mx-auto p-2">
+          {/* <a
+            href="/src/App.jsx"
             className="flex items-center space-x-3 rtl:space-x-reverse"
-          >
+          > */}
+          <Link to={'/'}>
             <img src={logo} width={150} alt="" />
-          </a>
+          </Link>
+          
           <button
             data-collapse-toggle="navbar-default"
             type="button"
@@ -64,13 +66,13 @@ export default function Navbar() {
             </svg>
           </button>
           <div
-            className="hidden w-full md:block lg:w-2/3 ps-24"
+            className="hidden w-full md:block lg:w-2/3 lg:ps-24"
             id="navbar-default"
           >
-            <ul className="flex flex-col justify-between p-4 md:p-0 mt-4 border w-full border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <div className="main_menu">
+            <ul className="flex flex-col justify-between p-4 pt-0 md:p-0 border w-full border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse  md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <div className="main_menu md:flex md:justify-center md:w-full lg:w-auto">
                 {userToken ? (
-                  <div className="flex flex-col lg:flex-row">
+                  <div className="flex flex-col md:flex-row">
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/"}>Home</NavLink>
                     </li>
@@ -83,14 +85,19 @@ export default function Navbar() {
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/about"}>About</NavLink>
                     </li>
-                    <li className="cart-icon mx-5 flex items-center">
+                    <li className="cart-icon mx-2 lg:mx-5 flex items-center mt-2">
                       <NavLink to={"/cart"}>
                         <div className=" relative text-green-950">
-                          <FontAwesomeIcon
-                            icon={faCartShopping}
-                            className="text-lg"
-                          />
-                          <p className=" text-xs text-white absolute -top-1/2 -right-1/2 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
+                          <div>
+                            <FontAwesomeIcon
+                              icon={faCartShopping}
+                              className="text-lg hidden md:inline"
+                            />
+                            <span className="inline md:hidden capitalize ">
+                              cart
+                            </span>
+                          </div>
+                          <p className=" text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
                             {countNumber}
                           </p>
                         </div>
