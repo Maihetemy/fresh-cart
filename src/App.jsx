@@ -18,7 +18,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import CartContextProvider from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
 import Categories from "./components/Categories/Categories";
-import Category from './components/Category/Category';
+import Category from "./components/Category/Category";
+import CheckOut from "./components/CheckOut/CheckOut";
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -80,6 +81,14 @@ function App() {
           element: (
             <ProtectedRouter>
               <Cart />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "checkOut",
+          element: (
+            <ProtectedRouter>
+              <CheckOut />
             </ProtectedRouter>
           ),
         },

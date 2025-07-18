@@ -13,10 +13,12 @@ export default function CartContextProvider(props) {
   const [totalPrice, setTotalPrice] = useState(0);
   async function getCart() {
     try {
-      const response = await axios
-        .get("https://ecommerce.routemisr.com/api/v1/cart", {
+      const response = await axios.get(
+        "https://ecommerce.routemisr.com/api/v1/cart",
+        {
           headers,
-        });
+        }
+      );
       setCountNumber(response?.data.numOfCartItems);
       setTotalPrice(response?.data.data.totalCartPrice);
       console.log(totalPrice);
@@ -27,12 +29,11 @@ export default function CartContextProvider(props) {
   }
   async function addToCart(productId) {
     try {
-      const response = await axios
-        .post(
-          "https://ecommerce.routemisr.com/api/v1/cart",
-          { productId },
-          { headers }
-        );
+      const response = await axios.post(
+        "https://ecommerce.routemisr.com/api/v1/cart",
+        { productId },
+        { headers }
+      );
       setCountNumber(response?.data.numOfCartItems);
       setTotalPrice(response?.data.data.totalCartPrice);
       console.log(totalPrice);
@@ -44,10 +45,12 @@ export default function CartContextProvider(props) {
 
   async function deleteProduct(productId) {
     try {
-      const response = await axios
-        .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
+      const response = await axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        {
           headers,
-        });
+        }
+      );
       setCountNumber(response?.data.numOfCartItems);
       setTotalPrice(response?.data.data.totalCartPrice);
       console.log(totalPrice);
@@ -58,12 +61,11 @@ export default function CartContextProvider(props) {
   }
   async function updateProduct(productId, count) {
     try {
-      const response = await axios
-        .put(
-          `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
-          { count },
-          { headers }
-        );
+      const response = await axios.put(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        { count },
+        { headers }
+      );
       setCountNumber(response?.data.numOfCartItems);
       setTotalPrice(response?.data.data.totalCartPrice);
       console.log(totalPrice);
@@ -72,10 +74,29 @@ export default function CartContextProvider(props) {
       return error;
     }
   }
+  async function checkOutSession(cartID, returnPath, body) {
+    try {
+      const response = await axios.put(
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=${returnPath}`,
+        { body },
+        { headers }
+      );
+      // setCountNumber(response?.data.numOfCartItems);
+      // setTotalPrice(response?.data.data.totalCartPrice);
+      console.log(`this is the response => ${response}`);
+      console.log(`this is the body => ${body}`);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
   async function clearCart() {
     try {
-      const response = await axios
-        .delete("https://ecommerce.routemisr.com/api/v1/cart", { headers });
+      const response = await axios.delete(
+        "https://ecommerce.routemisr.com/api/v1/cart",
+        { headers }
+      );
       setCountNumber(0);
       setTotalPrice(0);
       console.log(totalPrice);
@@ -94,6 +115,7 @@ export default function CartContextProvider(props) {
         clearCart,
         countNumber,
         totalPrice,
+        checkOutSession
       }}
     >
       {props.children}

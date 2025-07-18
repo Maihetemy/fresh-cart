@@ -5,11 +5,13 @@ import { cartContext } from "../../context/CartContext";
 import Product from "./../Product/Product";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
   let { getCart, deleteProduct, updateProduct, clearCart, totalPrice } =
     useContext(cartContext);
   const [cartDetails, setCartDetails] = useState(null);
+  let navigator = useNavigate();
   async function getCartProducts() {
     let response = await getCart();
     setCartDetails(response.data);
@@ -186,7 +188,7 @@ export default function Cart() {
                 <td colSpan={"100%"} className="text-center">
                   <button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => {navigator("/checkOut")}}
                     className="capitalize focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-3 mt-3 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                   >
                     checkout
