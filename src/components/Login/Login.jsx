@@ -32,12 +32,14 @@ export default function Login() {
   let navigator = useNavigate();
   let [apiMessage, setApiMessage] = useState("");
   let [isLoading, setIsLoading] = useState(false);
-  let {setUserToken} = useContext(userTokenContext);
+  let { setUserToken } = useContext(userTokenContext);
   async function handleLogin(formValues) {
     setIsLoading(true);
     axios
       .post(`https://ecommerce.routemisr.com/api/v1/auth/signin`, formValues)
       .then((apiResponse) => {
+        console.log(apiResponse);
+
         setUserToken(apiResponse.data.token);
         localStorage.setItem("token", apiResponse.data.token);
         navigator("/");

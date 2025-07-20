@@ -1,17 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import style from "./ProductCardUi.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 export default function ProductCardUi({ product, addToCartFun }) {
   useEffect(() => {}, []);
+  const [isClick, setClick] = useState(false);
   return (
     <>
       <div className="h-full flex flex-col p-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <Link to={`/product/${product.category.name}/${product.id}`}>
-          <h1>{product.category.name}</h1>
+          <div className="w-full flex justify-end">
+            <FontAwesomeIcon
+              icon={faHeart}
+              onClick={() => setClick(!isClick)}
+              className={`cursor-pointer transition-colors duration-300  ${
+                isClick ? "text-red-600" : "text-gray-400"
+              }`}
+            />
+          </div>
           <span href="#" className="flex justify-center w-full">
             <img
               className="rounded-t-lg w-1/2"
@@ -21,10 +29,10 @@ export default function ProductCardUi({ product, addToCartFun }) {
           </span>
           <div className="p-1.5 flex flex-col flex-grow justify-between">
             <div>
-              <h5 className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
+              <h5 className="mb-2 text-start font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
                 {product.title || "No title available"}
               </h5>
-              <p className="mb-2 text-xs text-gray-700 dark:text-gray-400 line-clamp-1">
+              <p className="mb-2 text-start text-xs text-gray-700 dark:text-gray-400 line-clamp-1">
                 {product.description || "No description available"}
               </p>
             </div>
@@ -46,15 +54,15 @@ export default function ProductCardUi({ product, addToCartFun }) {
             </div>
           </div>
         </Link>
-      <button
-        onClick={() => {
-          console.log("Product ID:", product.id);
-          addToCartFun(product.id);
-        }}
-        className="primary-btn"
-      >
-        Add To Cart
-      </button>
+        <button
+          onClick={() => {
+            console.log("Product ID:", product.id);
+            addToCartFun(product.id);
+          }}
+          className="primary-btn"
+        >
+          Add To Cart
+        </button>
       </div>
     </>
   );

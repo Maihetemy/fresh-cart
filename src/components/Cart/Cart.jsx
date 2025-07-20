@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
-  let { getCart, deleteProduct, updateProduct, clearCart, totalPrice } =
+  let { getCart, deleteProduct, updateProduct, clearCart, cart } =
     useContext(cartContext);
   const [cartDetails, setCartDetails] = useState(null);
   let navigator = useNavigate();
@@ -45,7 +45,7 @@ export default function Cart() {
               <td colSpan={5}>
                 <div className="flex justify-center items-center bg-slate-200">
                   <p className="font-bold text-lg me-5">
-                    Total Price : {totalPrice} EGP
+                    Total Price : {cart.data.totalCartPrice} EGP
                   </p>
                   <button
                     onClick={clearProducts}

@@ -20,6 +20,7 @@ import { Toaster } from "react-hot-toast";
 import Categories from "./components/Categories/Categories";
 import Category from "./components/Category/Category";
 import CheckOut from "./components/CheckOut/CheckOut";
+import AllUserOrders from "./components/AllUserOrders/AllUserOrders";
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -89,6 +90,14 @@ function App() {
           element: (
             <ProtectedRouter>
               <CheckOut />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "allorders",
+          element: (
+            <ProtectedRouter>
+              <AllUserOrders />
             </ProtectedRouter>
           ),
         },

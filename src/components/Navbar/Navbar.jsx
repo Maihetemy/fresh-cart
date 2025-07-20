@@ -13,7 +13,7 @@ export default function Navbar() {
   let navigator = useNavigate();
 
   let { userToken, setUserToken } = useContext(userTokenContext);
-  let { countNumber, getCart } = useContext(cartContext);
+  let { cart, getCart } = useContext(cartContext);
   function logout() {
     localStorage.removeItem("token");
     setUserToken(null);
@@ -98,7 +98,7 @@ export default function Navbar() {
                             </span>
                           </div>
                           <p className=" text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
-                            {countNumber}
+                            {cart.numOfCartItems}
                           </p>
                         </div>
                       </NavLink>

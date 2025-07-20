@@ -9,8 +9,9 @@ export default function CartContextProvider(props) {
   let headers = {
     token: localStorage?.getItem("token"),
   };
-  const [countNumber, setCountNumber] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [countNumber, setCountNumber] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
+  const [cart, setCart] = useState({});
   async function getCart() {
     try {
       const response = await axios.get(
@@ -19,9 +20,8 @@ export default function CartContextProvider(props) {
           headers,
         }
       );
-      setCountNumber(response?.data.numOfCartItems);
-      setTotalPrice(response?.data.data.totalCartPrice);
-      console.log(totalPrice);
+      setCart(response?.data);
+      console.log(cart);
       return response;
     } catch (error) {
       return error;
@@ -34,9 +34,9 @@ export default function CartContextProvider(props) {
         { productId },
         { headers }
       );
-      setCountNumber(response?.data.numOfCartItems);
-      setTotalPrice(response?.data.data.totalCartPrice);
-      console.log(totalPrice);
+      setCart(response?.data);
+      console.log(cart);
+      // console.log(totalPrice);
       return response;
     } catch (error) {
       return error;
@@ -51,9 +51,9 @@ export default function CartContextProvider(props) {
           headers,
         }
       );
-      setCountNumber(response?.data.numOfCartItems);
-      setTotalPrice(response?.data.data.totalCartPrice);
-      console.log(totalPrice);
+      setCart(response?.data);
+      console.log(cart);
+      // console.log(totalPrice);
       return response;
     } catch (error) {
       return error;
@@ -66,9 +66,9 @@ export default function CartContextProvider(props) {
         { count },
         { headers }
       );
-      setCountNumber(response?.data.numOfCartItems);
-      setTotalPrice(response?.data.data.totalCartPrice);
-      console.log(totalPrice);
+
+      setCart(response?.data);
+      console.log(cart);
       return response;
     } catch (error) {
       return error;
@@ -76,15 +76,11 @@ export default function CartContextProvider(props) {
   }
   async function checkOutSession(cartID, returnPath, body) {
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=${returnPath}`,
         { body },
         { headers }
       );
-      // setCountNumber(response?.data.numOfCartItems);
-      // setTotalPrice(response?.data.data.totalCartPrice);
-      console.log(`this is the response => ${response}`);
-      console.log(`this is the body => ${body}`);
       return response;
     } catch (error) {
       console.log(error);
@@ -97,9 +93,8 @@ export default function CartContextProvider(props) {
         "https://ecommerce.routemisr.com/api/v1/cart",
         { headers }
       );
-      setCountNumber(0);
-      setTotalPrice(0);
-      console.log(totalPrice);
+      setCart(response?.data);
+      console.log(cart);
       return response;
     } catch (error) {
       return error;
@@ -113,9 +108,8 @@ export default function CartContextProvider(props) {
         deleteProduct,
         updateProduct,
         clearCart,
-        countNumber,
-        totalPrice,
-        checkOutSession
+        cart,
+        checkOutSession,
       }}
     >
       {props.children}

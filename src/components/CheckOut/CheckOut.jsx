@@ -1,44 +1,46 @@
 /* eslint-disable no-unused-vars */
-
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { HiInformationCircle } from "react-icons/hi";
-import { Alert } from "flowbite-react";
-import { Link } from "react-router-dom";
-import { userTokenContext } from "../../context/UserContext";
 import { cartContext } from "../../context/CartContext";
-// import CheckOut from './CheckOut';
 
 export default function CheckOut() {
-  let { checkOutSession } = useContext(cartContext);
+  let { checkOutSession, cart } = useContext(cartContext);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   let CheckOutSchema = Yup.object().shape({
     details: Yup.string("Enter valid details").required("Details is required!"),
     phone: Yup.string()
-      .matches(/^01[0-2]\s\d{1,8}$/, "Enter a valid Egyptian number")
+      .matches(/^01[0125][0-9]{8}$/, "Enter a valid Egyptian number")
       .required("Phone is required!"),
     city: Yup.string("Enter valid city").required("City is required!"),
   });
   const goToPaymentScreen = async () => {
+    const shippingData = { shippingAddress: formik.values };
     try {
-      let apiMessage = await checkOutSession();
-      console.log(apiMessage);
-      
+      const fullPath = window.location.href;
+      const lastSlashIndex = fullPath.lastIndexOf("/");
+      let response = await checkOutSession(
+        cart.cartId,
+        fullPath.slice(0, lastSlashIndex),
+        shippingData
+      );
+      if (response.data.status === "success") {
+        window.location.href = response.data.session.url;
+      }
+      return response;
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
+      return error;
     }
   };
   let formik = useFormik({
     initialValues: {
-      shippingAddress: {
-        details: "",
-        phone: "",
-        city: "",
-      },
+      details: "",
+      phone: "",
+      city: "",
     },
-    onSubmit: ()=>goToPaymentScreen,
+    onSubmit: goToPaymentScreen,
     validationSchema: CheckOutSchema,
     validateOnBlur: true,
     validateOnChange: true,
@@ -49,18 +51,31 @@ export default function CheckOut() {
   return (
     <>
       <div className="mx-auto max-w-lg text-start mb-20 mt-28">
-        {/* {apiMessage ? (
+        {errorMessage ? (
           <div
             className="p-3 my-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
             role="alert"
           >
-            {apiMessage}
+            {errorMessage}
           </div>
-        ) : null} */}
+        ) : null}
 
         <h1 className="capitalize text-4xl font-black text-green-900 dark:text-green mb-4">
           check out now!
         </h1>
+        <div className="my-3">
+          {cart ? (
+            <span className="capitalize bg-yellow-100 text-yellow-800 text-sm font-medium me-2 p-2 rounded-md dark:bg-yellow-900 dark:text-yellow-300">
+              num Of Cart Items: <span className="text-yellow-900 font-bold">{cart.numOfCartItems}</span> 
+            </span>
+          ) : null}
+          {cart ? (
+            <span className="capitalize bg-yellow-100 text-yellow-800 text-sm font-medium me-2 p-2 rounded-md dark:bg-yellow-900 dark:text-yellow-300">
+              Total cart price: <span className="text-yellow-900 font-bold">{cart.data.totalCartPrice} EGP</span>
+            </span>
+          ) : null}
+        </div>
+
         <form onSubmit={formik.handleSubmit}>
           <div className="relative z-0 w-full  py-4 group">
             <input
