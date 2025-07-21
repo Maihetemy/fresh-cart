@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home";
 import Cart from "./components/Cart/Cart";
-import Login from "./components/login/login";
 import Register from "./components/register/register";
 import About from "./components/About/About";
 import Brands from "./components/brands/brands";
@@ -21,6 +20,8 @@ import Categories from "./components/Categories/Categories";
 import Category from "./components/Category/Category";
 import CheckOut from "./components/CheckOut/CheckOut";
 import AllUserOrders from "./components/AllUserOrders/AllUserOrders";
+import WishListPage from "./components/wishListPage/wishListPage";
+import Login from "./components/Login/Login";
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -98,6 +99,14 @@ function App() {
           element: (
             <ProtectedRouter>
               <AllUserOrders />
+            </ProtectedRouter>
+          ),
+        },
+        {
+          path: "wishListPage",
+          element: (
+            <ProtectedRouter>
+              <WishListPage />
             </ProtectedRouter>
           ),
         },

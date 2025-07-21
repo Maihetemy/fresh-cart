@@ -3,15 +3,16 @@ import React, { useState, useContext, useEffect } from "react";
 import style from "./Navbar.module.css";
 import logo from "../../assets/imgs/freshcart-logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Register from "./../register/register";
 import { userTokenContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { cartContext } from "../../context/CartContext";
 import Categories from "./../Categories/Categories";
+import useWishList from "../../Hooks/useWishList";
 export default function Navbar() {
   let navigator = useNavigate();
 
+  let { wishList } = useWishList();
   let { userToken, setUserToken } = useContext(userTokenContext);
   let { cart, getCart } = useContext(cartContext);
   function logout() {
@@ -33,14 +34,10 @@ export default function Navbar() {
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-md bg-main-light fixed top-0 right-0 left-0 p-2">
         <div className="max-w-screen-xl  flex flex-wrap md:flex-nowrap items-center justify-between mx-auto p-2">
-          {/* <a
-            href="/src/App.jsx"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
-          > */}
-          <Link to={'/'}>
+          <Link to={"/"}>
             <img src={logo} width={150} alt="" />
           </Link>
-          
+
           <button
             data-collapse-toggle="navbar-default"
             type="button"
@@ -85,7 +82,25 @@ export default function Navbar() {
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/about"}>About</NavLink>
                     </li>
-                    <li className="cart-icon mx-2 lg:mx-5 flex items-center mt-2">
+                    <li className="cart-icon m-2 lg:mx-4 flex items-center">
+                      <NavLink to={"/wishListPage"}>
+                        <div className=" relative ">
+                          <div>
+                            <FontAwesomeIcon
+                              icon={faHeart}
+                              className="text-lg hidden md:inline text-green-950"
+                            />
+                            <span className="inline md:hidden capitalize ">
+                              cart
+                            </span>
+                          </div>
+                          <p className=" text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
+                            {wishList?.count}
+                          </p>
+                        </div>
+                      </NavLink>
+                    </li>
+                    <li className="cart-icon flex items-center mt-1">
                       <NavLink to={"/cart"}>
                         <div className=" relative text-green-950">
                           <div>

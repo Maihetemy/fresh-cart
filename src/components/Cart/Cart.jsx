@@ -45,7 +45,7 @@ export default function Cart() {
               <td colSpan={5}>
                 <div className="flex justify-center items-center bg-slate-200">
                   <p className="font-bold text-lg me-5">
-                    Total Price : {cart.data.totalCartPrice} EGP
+                    Total Price : {cart?.data?.totalCartPrice} EGP
                   </p>
                   <button
                     onClick={clearProducts}

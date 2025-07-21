@@ -10,8 +10,6 @@ export default function ProductCardUi({ product, addToCartFun }) {
   // const isFav = false;
   const initialFav = wishList?.data?.some((item) => product.id === item._id);
   const [isFav, setIsFav] = useState(initialFav);
-  console.log(wishList);
-  console.log(product);
   useEffect(() => {
     setIsFav(wishList?.data?.some((item) => product.id === item._id));
   }, [product.id, wishList]);

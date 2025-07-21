@@ -7,9 +7,10 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import useProductDetails from "../../Hooks/useProductDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { cartContext } from "../../context/CartContext";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
+import useWishList from "../../Hooks/useWishList";
 
 export default function ProductDetails() {
   let { id } = useParams();
@@ -24,7 +25,7 @@ export default function ProductDetails() {
     autoplaySpeed: 1700,
   };
   let [productDetails, setProductDetails] = useState(null);
-  let {addToCart} = useContext(cartContext);
+  let { addToCart } = useContext(cartContext);
   function GetProductDetails(id) {
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
@@ -46,12 +47,23 @@ export default function ProductDetails() {
       console.log("error");
     }
   }
-  // let { data } = useProductDetails((id = { id }));
   useEffect(() => {
     GetProductDetails(id);
-    // setProductDetails(data?.data?.data);
   }, [id]);
-
+  const { wishList, addToWishList, removeFromWishList } = useWishList();
+  const initialFav = wishList?.data?.some((item) => id === item._id);
+  const [isFav, setIsFav] = useState(initialFav);
+  useEffect(() => {
+    setIsFav(wishList?.data?.some((item) => id === item._id));
+  }, [id, wishList]);
+  const toggleWishHeart = async (productId) => {
+    if (isFav) {
+      await removeFromWishList(productId);
+    } else {
+      await addToWishList(productId);
+    }
+    setIsFav(!isFav);
+  };
   return (
     <>
       <div className="product-details flex flex-wrap items-center sm:m-2 md:m-7 lg:m-10">
@@ -65,9 +77,21 @@ export default function ProductDetails() {
           </Slider>
         </div>
         <div className="w-full sm:w-1/2 md:w-1/2 lg:w-3/4 text-start ps-8">
-          <h2 className="font-semibold text-xl py-2">
-            {productDetails?.title}
-          </h2>
+          <div className="w-full flex justify-between">
+            <h2 className="font-semibold text-xl py-2">
+              {productDetails?.title}
+            </h2>
+            <FontAwesomeIcon
+              icon={faHeart}
+              onClick={() => {
+                toggleWishHeart(id);
+              }}
+              className={`cursor-pointer text-2xl transition-colors duration-300  ${
+                isFav ? "text-red-600" : "text-gray-400"
+              }`}
+            />
+          </div>
+
           <p className=" text-gray-500 py-2">{productDetails?.description}</p>
           <p className="text-sm font-bold text-gray-700 dark:text-gray-400 my-2">
             {productDetails?.category?.name}
@@ -85,7 +109,7 @@ export default function ProductDetails() {
             </p>
           </div>
           <a
-          onClick={()=>addToCartFun(productDetails.id)}
+            onClick={() => addToCartFun(productDetails.id)}
             href="#"
             className="w-full inline-flex justify-center items-center px-3 py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           >
