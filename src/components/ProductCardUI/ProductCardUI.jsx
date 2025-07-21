@@ -1,25 +1,43 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import useWishList from "../../Hooks/useWishList";
 export default function ProductCardUi({ product, addToCartFun }) {
-  useEffect(() => {}, []);
-  const [isClick, setClick] = useState(false);
+  const { wishList, addToWishList, removeFromWishList } = useWishList();
+  // const isFav = false;
+  const initialFav = wishList?.data?.some((item) => product.id === item._id);
+  const [isFav, setIsFav] = useState(initialFav);
+  console.log(wishList);
+  console.log(product);
+  useEffect(() => {
+    setIsFav(wishList?.data?.some((item) => product.id === item._id));
+  }, [product.id, wishList]);
+  const toggleWishHeart = async (productId) => {
+    if (isFav) {
+      await removeFromWishList(productId);
+    } else {
+      await addToWishList(productId);
+    }
+    setIsFav(!isFav);
+  };
   return (
     <>
       <div className="h-full flex flex-col p-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full flex justify-end">
+          <FontAwesomeIcon
+            icon={faHeart}
+            onClick={() => {
+              toggleWishHeart(product.id);
+            }}
+            className={`cursor-pointer transition-colors duration-300  ${
+              isFav ? "text-red-600" : "text-gray-400"
+            }`}
+          />
+        </div>
         <Link to={`/product/${product.category.name}/${product.id}`}>
-          <div className="w-full flex justify-end">
-            <FontAwesomeIcon
-              icon={faHeart}
-              onClick={() => setClick(!isClick)}
-              className={`cursor-pointer transition-colors duration-300  ${
-                isClick ? "text-red-600" : "text-gray-400"
-              }`}
-            />
-          </div>
           <span href="#" className="flex justify-center w-full">
             <img
               className="rounded-t-lg w-1/2"
