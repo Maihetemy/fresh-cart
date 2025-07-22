@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import style from "./MainSlider.module.css";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import mainImg1 from "../../assets/imgs/slider/slider-image-3.jpeg";
 import mainImg2 from "../../assets/imgs/slider/slider-image-1.jpeg";
-import axios from "axios";
 import useCategories from "../../Hooks/useCategories";
 
 export default function MainSlider() {

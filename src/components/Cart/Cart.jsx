@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
-import style from "./Cart.module.css";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "../../context/CartContext";
-import Product from "./../Product/Product";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import Spinner from "./../Spinner/Spinner";
 import PrimaryButton from "./../PrimaryButton/PrimaryButton";
 
 export default function Cart() {
@@ -85,7 +81,7 @@ export default function Cart() {
           </thead>
           <tbody>
             {cartDetails ? (
-              cartDetails?.data?.products.map((product, index) => (
+              cartDetails?.data?.products.map((product) => (
                 <tr
                   key={product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"

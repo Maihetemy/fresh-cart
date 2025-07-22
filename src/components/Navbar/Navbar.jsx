@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect } from "react";
-import style from "./Navbar.module.css";
+import  { useContext, useEffect } from "react";
 import logo from "../../assets/imgs/freshcart-logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { userTokenContext } from "../../context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { cartContext } from "../../context/CartContext";
-import Categories from "./../Categories/Categories";
 import useWishList from "../../Hooks/useWishList";
 export default function Navbar() {
   let navigator = useNavigate();

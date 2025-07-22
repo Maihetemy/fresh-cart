@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import style from "./AllUserOrders.module.css";
+import { useEffect} from "react";
 export default function AllUserOrders() {
-  const [counter, setCounter] = useState(0);
   useEffect(() => {}, []);
   return (
     <>

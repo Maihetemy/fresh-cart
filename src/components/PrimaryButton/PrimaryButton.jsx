@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import style from "./PrimaryButton.module.css";
+import { useEffect, useState } from "react";
 import Spinner from "./../Spinner/Spinner";
 import PropTypes from "prop-types";
 export default function PrimaryButton({ fun, text }) {

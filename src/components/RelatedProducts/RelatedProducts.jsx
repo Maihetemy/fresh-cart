@@ -1,11 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
-import style from "./RelatedProducts.module.css";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ClipLoader from "react-spinners/ClipLoader";
 import useProducts from "../../Hooks/useProducts";
 import ProductCardUi from "./../ProductCardUI/ProductCardUI";
@@ -29,24 +24,6 @@ export default function RelatedProducts() {
       getRelatedProduct(category);
     }
   }, [category, data]);
-
-  // const [relatedProductsList, setRelatedProductsList] = useState([]);
-  // function getProducts(name) {
-  //   axios
-  //     .get("https://ecommerce.routemisr.com/api/v1/products")
-  //     .then(({ data }) => {
-  //       let filteredProductsList = data.data.filter(
-  //         (product) => product.category?.name === name
-  //       );
-
-  //       setRelatedProductsList(filteredProductsList);
-  //     })
-  //     .catch((error) => {});
-  // }
-  // useEffect(() => {
-  //   getProducts(category);
-  // }, [category]);
-
   if (isError) {
     return <h3>{error}</h3>;
   }

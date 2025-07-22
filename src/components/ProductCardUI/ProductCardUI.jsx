@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import useWishList from "../../Hooks/useWishList";
-import Spinner from "../Spinner/Spinner";
 import PrimaryButton from "./../PrimaryButton/PrimaryButton";
 export default function ProductCardUi({ product, addToCartFun }) {
   const { wishList, addToWishList, removeFromWishList } = useWishList();
@@ -26,7 +24,6 @@ export default function ProductCardUi({ product, addToCartFun }) {
     }
     setIsFav(!isFav);
   };
-  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <div className="relative h-full flex flex-col  bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -72,7 +69,10 @@ export default function ProductCardUi({ product, addToCartFun }) {
             </div>
           </div>
         </Link>
-        <PrimaryButton fun={() => addToCartFun(product.id)} text="add to cart" />
+        <PrimaryButton
+          fun={() => addToCartFun(product.id)}
+          text="add to cart"
+        />
       </div>
     </>
   );

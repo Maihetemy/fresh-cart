@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import style from "./Footer.module.css";
+import  { useEffect} from "react";
 import brandsImg from "../../assets/imgs/brands-1-removebg.png";
 import googleAppImg from "../../assets/imgs/google-play-icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple } from "@fortawesome/free-brands-svg-icons";
 export default function Footer() {
-  const [counter, setCounter] = useState(0);
   useEffect(() => {}, []);
   return (
     <>

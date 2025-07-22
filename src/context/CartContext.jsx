@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
-import { createContext, useContext, useEffect } from "react";
+import { createContext } from "react";
 import { useState } from "react";
 
 export let cartContext = createContext();
@@ -9,8 +8,6 @@ export default function CartContextProvider(props) {
   let headers = {
     token: localStorage?.getItem("token"),
   };
-  // const [countNumber, setCountNumber] = useState(0);
-  // const [totalPrice, setTotalPrice] = useState(0);
   const [cart, setCart] = useState({});
   async function getCart() {
     try {

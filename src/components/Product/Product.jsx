@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import style from "./Product.module.css";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductDetails from "./../ProductDetails/ProductDetails";
 import RelatedProducts from "./../RelatedProducts/RelatedProducts";

@@ -1,16 +1,11 @@
-/* eslint-disable no-unused-vars */
-
-"use client";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { HiInformationCircle } from "react-icons/hi";
-import { Alert } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { userTokenContext } from "../../context/UserContext";
-import Spinner from './../Spinner/Spinner';
+import Spinner from "./../Spinner/Spinner";
 
 export default function Login() {
   let loginSchema = Yup.object().shape({
@@ -139,11 +134,7 @@ export default function Login() {
               type="submit"
               className="my-3 p-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-4.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
-              {isLoading ? (
-                <Spinner/>
-              ) : (
-                "Login"
-              )}
+              {isLoading ? <Spinner /> : "Login"}
             </button>
             <p className="text-sm ms-4">
               Do not have an account yet?

@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
-
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { HiInformationCircle } from "react-icons/hi";
-import { Alert } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { userTokenContext } from "../../context/UserContext";
 import Spinner from './../Spinner/Spinner';

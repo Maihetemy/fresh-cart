@@ -1,15 +1,10 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
-import style from "./Categories.module.css";
-import { useParams } from "react-router-dom";
-import { Slider } from "react-slick";
+import {useEffect} from "react";
 import useCategories from "../../Hooks/useCategories";
-import ProductCardUi from "./../ProductCardUI/ProductCardUI";
-import { cartContext } from "./../../context/CartContext";
+// import { cartContext } from "./../../context/CartContext";
 import { Link } from "react-router-dom";
 export default function Categories() {
   let { data } = useCategories();
-  let { addToCart } = useContext(cartContext);
+  // let { addToCart } = useContext(cartContext);
   useEffect(() => {}, []);
   return (
     <>

@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState, useRef } from "react";
+
+import { useContext, useEffect, useState} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { cartContext } from "../../context/CartContext";
@@ -66,12 +66,18 @@ export default function CheckOut() {
         <div className="my-3">
           {cart ? (
             <span className="capitalize bg-yellow,-100 text-yellow-800 text-sm font-medium me-2 p-2 rounded-md dark:bg-yellow-900 dark:text-yellow-300">
-              num Of Cart Items: <span className="text-yellow-900 font-bold">{cart.numOfCartItems}</span> 
+              num Of Cart Items:{" "}
+              <span className="text-yellow-900 font-bold">
+                {cart.numOfCartItems}
+              </span>
             </span>
           ) : null}
           {cart ? (
             <span className="capitalize bg-yellow-100 text-yellow-800 text-sm font-medium me-2 p-2 rounded-md dark:bg-yellow-900 dark:text-yellow-300">
-              Total cart price: <span className="text-yellow-900 font-bold">{cart.data.totalCartPrice} EGP</span>
+              Total cart price:{" "}
+              <span className="text-yellow-900 font-bold">
+                {cart.data.totalCartPrice} EGP
+              </span>
             </span>
           ) : null}
         </div>
@@ -162,7 +168,6 @@ export default function CheckOut() {
             >
               check out
             </button> */}
-            
           </div>
         </form>
       </div>

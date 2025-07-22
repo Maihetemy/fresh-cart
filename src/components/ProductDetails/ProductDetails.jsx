@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
-import style from "./ProductDetails.module.css";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
-import useProductDetails from "../../Hooks/useProductDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { cartContext } from "../../context/CartContext";

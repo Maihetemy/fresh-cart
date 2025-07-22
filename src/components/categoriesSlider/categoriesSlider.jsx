@@ -1,9 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import style from "./CategoriesSlider.module.css";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import axios from "axios";
-import Categories from "./../Categories/Categories";
 import useCategories from "./../../Hooks/useCategories";
 import { Link } from "react-router-dom";
 

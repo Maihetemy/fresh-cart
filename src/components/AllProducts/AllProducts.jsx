@@ -1,9 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
-import style from "./AllProducts.module.css";
 
-import { Link } from "react-router-dom";
-import ProductDetails from "../ProductDetails/ProductDetails";
+import { useContext, useEffect, useState } from "react";
 import useProducts from "./../../Hooks/useProducts";
 import { cartContext } from "./../../context/CartContext";
 import { toast } from "react-hot-toast";
