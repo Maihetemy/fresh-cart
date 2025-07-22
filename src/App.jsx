@@ -21,7 +21,7 @@ import CheckOut from "./components/CheckOut/CheckOut";
 import AllUserOrders from "./components/AllUserOrders/AllUserOrders";
 import WishListPage from "./components/wishListPage/wishListPage";
 import Login from "./components/Login/Login";
-import Brands from './components/Brands/Brands';
+import Brands from "./components/Brands/Brands";
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -33,7 +33,7 @@ function App() {
           index: true,
           element: (
             <ProtectedRouter>
-              <Home />{" "}
+              <Home />
             </ProtectedRouter>
           ),
         },
@@ -41,7 +41,6 @@ function App() {
           path: "brands",
           element: (
             <ProtectedRouter>
-              {" "}
               <Brands />
             </ProtectedRouter>
           ),

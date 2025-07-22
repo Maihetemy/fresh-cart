@@ -82,7 +82,7 @@ export default function Navbar() {
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
                       <NavLink to={"/about"}>About</NavLink>
                     </li>
-                    <li className="cart-icon m-2 lg:mx-4 flex items-center">
+                    <li className="cart-icon mx-2 flex items-center">
                       <NavLink to={"/wishListPage"}>
                         <div className=" relative ">
                           <div>
@@ -91,16 +91,16 @@ export default function Navbar() {
                               className="text-lg hidden md:inline text-green-950"
                             />
                             <span className="inline md:hidden capitalize ">
-                              cart
+                              wish list
                             </span>
                           </div>
-                          <p className=" text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
+                          <p className="text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
                             {wishList?.count}
                           </p>
                         </div>
                       </NavLink>
                     </li>
-                    <li className="cart-icon flex items-center mt-1">
+                    <li className="cart-icon mx-2 flex items-center">
                       <NavLink to={"/cart"}>
                         <div className=" relative text-green-950">
                           <div>
@@ -112,7 +112,7 @@ export default function Navbar() {
                               cart
                             </span>
                           </div>
-                          <p className=" text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
+                          <p className="text-xs text-white absolute -top-1/4 -right-1/4 translate-x-1/2 bg-green-400 px-1.5 rounded-lg ms-0.5">
                             {cart.numOfCartItems}
                           </p>
                         </div>

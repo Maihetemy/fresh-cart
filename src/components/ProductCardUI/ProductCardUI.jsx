@@ -5,14 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import useWishList from "../../Hooks/useWishList";
+import Spinner from "../Spinner/Spinner";
+import PrimaryButton from "./../PrimaryButton/PrimaryButton";
 export default function ProductCardUi({ product, addToCartFun }) {
   const { wishList, addToWishList, removeFromWishList } = useWishList();
-  // const isFav = false;
+
   const initialFav = wishList?.data?.some((item) => product.id === item._id);
+
   const [isFav, setIsFav] = useState(initialFav);
+
   useEffect(() => {
     setIsFav(wishList?.data?.some((item) => product.id === item._id));
   }, [product.id, wishList]);
+
   const toggleWishHeart = async (productId) => {
     if (isFav) {
       await removeFromWishList(productId);
@@ -21,10 +26,11 @@ export default function ProductCardUi({ product, addToCartFun }) {
     }
     setIsFav(!isFav);
   };
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <div className="h-full flex flex-col p-2 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <div className="w-full flex justify-end">
+      <div className="relative h-full flex flex-col  bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full flex justify-end absolute right-3 top-3">
           <FontAwesomeIcon
             icon={faHeart}
             onClick={() => {
@@ -37,13 +43,9 @@ export default function ProductCardUi({ product, addToCartFun }) {
         </div>
         <Link to={`/product/${product.category.name}/${product.id}`}>
           <span href="#" className="flex justify-center w-full">
-            <img
-              className="rounded-t-lg w-1/2"
-              src={product.imageCover}
-              alt=""
-            />
+            <img className="rounded-t-lg" src={product.imageCover} alt="" />
           </span>
-          <div className="p-1.5 flex flex-col flex-grow justify-between">
+          <div className="flex flex-col flex-grow justify-between p-2">
             <div>
               <h5 className="mb-2 text-start font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
                 {product.title || "No title available"}
@@ -70,15 +72,7 @@ export default function ProductCardUi({ product, addToCartFun }) {
             </div>
           </div>
         </Link>
-        <button
-          onClick={() => {
-            console.log("Product ID:", product.id);
-            addToCartFun(product.id);
-          }}
-          className="primary-btn"
-        >
-          Add To Cart
-        </button>
+        <PrimaryButton fun={() => addToCartFun(product.id)} text="add to cart" />
       </div>
     </>
   );

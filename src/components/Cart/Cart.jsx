@@ -5,7 +5,9 @@ import { cartContext } from "../../context/CartContext";
 import Product from "./../Product/Product";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Spinner from "./../Spinner/Spinner";
+import PrimaryButton from "./../PrimaryButton/PrimaryButton";
 
 export default function Cart() {
   let { getCart, deleteProduct, updateProduct, clearCart, cart } =
@@ -47,10 +49,16 @@ export default function Cart() {
                   <p className="font-bold text-lg me-5">
                     Total Price : {cart?.data?.totalCartPrice} EGP
                   </p>
+                  {cartDetails ? (
+                    <PrimaryButton
+                      fun={() => navigator("/checkOut")}
+                      text="checkout"
+                    />
+                  ) : null}
                   <button
                     onClick={clearProducts}
                     type="button"
-                    className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 my-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    className="capitalize focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 text-xs md:text-sm font-medium rounded-lg px-3 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                   >
                     Clear Cart
                   </button>
@@ -183,19 +191,17 @@ export default function Cart() {
                 </td>
               </tr>
             )}
-            {cartDetails ? (
-              <tr>
-                <td colSpan={"100%"} className="text-center">
-                  <button
-                    type="button"
-                    onClick={() => {navigator("/checkOut")}}
-                    className="capitalize focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-3 mt-3 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                  >
-                    checkout
-                  </button>
-                </td>
-              </tr>
-            ) : null}
+            <tr>
+              <td colSpan={"100%"} className="text-center">
+                {/* <button
+                  onClick={clearProducts}
+                  type="button"
+                  className="capitalize focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mx-3 mt-3 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                >
+                  Clear Cart
+                </button> */}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
