@@ -7,7 +7,6 @@ import Home from "./components/Home/Home";
 import Cart from "./components/Cart/Cart";
 import Register from "./components/register/register";
 import About from "./components/About/About";
-import Brands from "./components/brands/brands";
 import NotFound from "./components/NotFound/NotFound";
 import UserTokenContextProvider from "./context/UserContext";
 import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
@@ -22,6 +21,7 @@ import CheckOut from "./components/CheckOut/CheckOut";
 import AllUserOrders from "./components/AllUserOrders/AllUserOrders";
 import WishListPage from "./components/wishListPage/wishListPage";
 import Login from "./components/Login/Login";
+import Brands from './components/Brands/Brands';
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
