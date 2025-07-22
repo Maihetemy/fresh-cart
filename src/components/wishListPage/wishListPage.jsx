@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import style from "./WishListPage.module.css";
 import useWishList from "../../Hooks/useWishList";
 import ProductCardUi from "./../ProductCardUI/ProductCardUI";
 import { toast } from "react-hot-toast";
