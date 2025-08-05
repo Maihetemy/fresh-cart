@@ -1,22 +1,31 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { useState } from "react";
+import { userTokenContext } from "./UserContext";
 
 export let cartContext = createContext();
 
 export default function CartContextProvider(props) {
-  let headers = {
-    token: localStorage?.getItem("token"),
-  };
+  const { userToken } = useContext(userTokenContext);
+
+  function getAuthHeaders() {
+    console.log('userToken', userToken);
+    
+    return {
+      headers: {
+        token: userToken,
+      },
+    };
+  }
   const [cart, setCart] = useState({});
   async function getCart() {
     try {
       const response = await axios.get(
         "https://ecommerce.routemisr.com/api/v1/cart",
-        {
-          headers,
-        }
+        getAuthHeaders()
       );
+      console.log('hello this is the token',userToken);
+      
       setCart(response?.data);
       console.log(cart);
       return response;
@@ -26,10 +35,12 @@ export default function CartContextProvider(props) {
   }
   async function addToCart(productId) {
     try {
+      console.log('this is the product id',productId);
+      
       const response = await axios.post(
         "https://ecommerce.routemisr.com/api/v1/cart",
         { productId },
-        { headers }
+        getAuthHeaders()
       );
       setCart(response?.data);
       console.log(cart);
@@ -44,9 +55,7 @@ export default function CartContextProvider(props) {
     try {
       const response = await axios.delete(
         `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
-        {
-          headers,
-        }
+        getAuthHeaders()
       );
       setCart(response?.data);
       console.log(cart);
@@ -61,7 +70,7 @@ export default function CartContextProvider(props) {
       const response = await axios.put(
         `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
         { count },
-        { headers }
+        getAuthHeaders()
       );
 
       setCart(response?.data);
@@ -76,7 +85,7 @@ export default function CartContextProvider(props) {
       const response = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartID}?url=${returnPath}`,
         { body },
-        { headers }
+        getAuthHeaders()
       );
       return response;
     } catch (error) {
@@ -88,7 +97,7 @@ export default function CartContextProvider(props) {
     try {
       const response = await axios.delete(
         "https://ecommerce.routemisr.com/api/v1/cart",
-        { headers }
+        getAuthHeaders()
       );
       setCart(response?.data);
       console.log(cart);

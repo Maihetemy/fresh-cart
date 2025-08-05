@@ -1,27 +1,25 @@
-/* eslint-disable no-unused-vars */
-import { useState } from "react";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
-import Home from "./components/Home/Home";
-import Cart from "./components/Cart/Cart";
-import Register from "./components/register/register";
-import About from "./components/About/About";
-import NotFound from "./components/NotFound/NotFound";
-import UserTokenContextProvider from "./context/UserContext";
-import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
-import Product from "./components/Product/Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import CartContextProvider from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
-import Categories from "./components/Categories/Categories";
-import Category from "./components/Category/Category";
-import CheckOut from "./components/CheckOut/CheckOut";
-import AllUserOrders from "./components/AllUserOrders/AllUserOrders";
-import WishListPage from "./components/wishListPage/wishListPage";
-import Login from "./components/Login/Login";
-import Brands from "./components/Brands/Brands";
+import ProtectedRouter from "./components/ProtectedRouter/ProtectedRouter";
+import Home from "./pages/Home/Home";
+import Brands from "./pages/Brands/Brands";
+import About from "./pages/About/About";
+import Categories from "./pages/Categories/Categories";
+import Product from "./components/Product/Product";
+import Category from "./pages/Category/Category";
+import Cart from "./pages/Cart/Cart";
+import CheckOut from "./pages/CheckOut/CheckOut";
+import AllUserOrders from "./pages/AllUserOrders/AllUserOrders";
+import WishListPage from "./pages/wishListPage/wishListPage";
+import Login from "./pages/Login/Login";
+import Register from "./pages/register/register";
+import NotFound from "./pages/NotFound/NotFound";
+import CartContextProvider from "./context/CartContext";
+import UserTokenContextProvider from "./context/UserContext";
+import Layout from './components/Layout/Layout';
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([

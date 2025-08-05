@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { userTokenContext } from "../../context/UserContext";
-import Spinner from './../Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function Register() {
   let signupSchema = Yup.object().shape({

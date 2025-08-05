@@ -10,11 +10,13 @@ export default function Navbar() {
   let navigator = useNavigate();
 
   let { wishList } = useWishList();
-  let { userToken, setUserToken } = useContext(userTokenContext);
+  let { userToken, setUserToken, setUserID } = useContext(userTokenContext);
   let { cart, getCart } = useContext(cartContext);
   function logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("userID");
     setUserToken(null);
+    setUserID(null);
     navigator("/login");
   }
   async function getCartProducts() {

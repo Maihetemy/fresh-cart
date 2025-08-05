@@ -6,7 +6,7 @@ export default function PrimaryButton({ fun, text }) {
   useEffect(() => {}, []);
   return (
     <>
-      <div className="p-1.5">
+      <div className="p-2">
         <button
           onClick={async () => {
             try {

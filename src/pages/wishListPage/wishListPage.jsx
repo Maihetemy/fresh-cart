@@ -1,9 +1,9 @@
 import { useEffect} from "react";
 import useWishList from "../../Hooks/useWishList";
-import ProductCardUi from "./../ProductCardUI/ProductCardUI";
+import ProductCardUi from "../../components/ProductCardUI/ProductCardUI";
 import { toast } from "react-hot-toast";
 import { useContext } from "react";
-import { cartContext } from "./../../context/CartContext";
+import { cartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import emptyCart from "../../assets/imgs/empty_cart_transparent.png";
 export default function WishListPage() {
@@ -13,16 +13,14 @@ export default function WishListPage() {
 
   async function addToCartFun(productId) {
     let response = await addToCart(productId);
-    console.log(response);
     if (response?.data?.status === "success") {
       toast.success(response?.data?.data?.message || "Successfully toasted!");
-      console.log("done");
+      console.log(response?.data?.status);
     } else {
       toast.error(response?.data?.data?.message || "Error adding to cart");
       console.log("error");
     }
   }
-  console.log(typeof wishList);
 
   return (
     <>

@@ -1,28 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { userTokenContext } from "../../context/UserContext";
-import Spinner from "./../Spinner/Spinner";
+import Spinner from "../../components/Spinner/Spinner";
+import { signin } from "../../API/userAPI";
 
 export default function Login() {
   let loginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Enter valid email")
       .required("Email is required!"),
-    password: Yup.string()
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        `Password must be strong !!
-        - 8 characters length
-        - letters in Upper Case
-        - Special Character (!@#$&*)
-        - numerals (0-9)
-        - letters in Lower Case`
-      )
-      .required("Password is required!"),
   });
 
   let navigator = useNavigate();
@@ -31,21 +20,16 @@ export default function Login() {
   let { setUserToken } = useContext(userTokenContext);
   async function handleLogin(formValues) {
     setIsLoading(true);
-    axios
-      .post(`https://ecommerce.routemisr.com/api/v1/auth/signin`, formValues)
-      .then((apiResponse) => {
-        console.log(apiResponse);
-
-        setUserToken(apiResponse.data.token);
-        localStorage.setItem("token", apiResponse.data.token);
-        navigator("/");
-        setIsLoading(false);
-      })
-      .catch((apiResponse) => {
-        setIsLoading(false);
-        console.log(apiResponse?.response?.data?.message);
-        setApiMessage(apiResponse?.response?.data?.message);
-      });
+    try {
+      const data = await signin(formValues);
+      localStorage.setItem("token", data?.token);
+      setUserToken(data?.token);
+      console.log("this is the token form login method", data?.token);
+      navigator("/");
+    } catch (error) {
+      setApiMessage(error?.response?.data?.message);
+    }
+    setIsLoading(false);
   }
 
   let formik = useFormik({

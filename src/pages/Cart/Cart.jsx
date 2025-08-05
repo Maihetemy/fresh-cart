@@ -3,7 +3,7 @@ import { cartContext } from "../../context/CartContext";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import PrimaryButton from "./../PrimaryButton/PrimaryButton";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 
 export default function Cart() {
   let { getCart, deleteProduct, updateProduct, clearCart, cart } =

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useProducts from "./../../Hooks/useProducts";
-import ProductCardUi from "./../ProductCardUI/ProductCardUI";
+import useProducts from "../../Hooks/useProducts";
+import ProductCardUi from "../../components/ProductCardUI/ProductCardUI";
 import { cartContext } from "../../context/CartContext";
 export default function Category() {
   const [categoryProductList, setCategoryProductList] = useState([]);

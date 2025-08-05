@@ -26,7 +26,7 @@ export default function ProductCardUi({ product, addToCartFun }) {
   };
   return (
     <>
-      <div className="relative h-full flex flex-col  bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <div className="relative h-full flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <div className="w-full flex justify-end absolute right-3 top-3">
           <FontAwesomeIcon
             icon={faHeart}
@@ -42,7 +42,7 @@ export default function ProductCardUi({ product, addToCartFun }) {
           <span href="#" className="flex justify-center w-full">
             <img className="rounded-t-lg" src={product.imageCover} alt="" />
           </span>
-          <div className="flex flex-col flex-grow justify-between p-2">
+          <div className="flex flex-col flex-grow justify-between p-3">
             <div>
               <h5 className="mb-2 text-start font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
                 {product.title || "No title available"}
