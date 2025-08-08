@@ -6,10 +6,10 @@ import { userTokenContext } from "./UserContext";
 export let cartContext = createContext();
 
 export default function CartContextProvider(props) {
-  const { userToken } = useContext(userTokenContext);
+  let { userToken } = useContext(userTokenContext);
 
   function getAuthHeaders() {
-    console.log('userToken', userToken);
+    console.log('userToken form cart context', userToken);
     
     return {
       headers: {

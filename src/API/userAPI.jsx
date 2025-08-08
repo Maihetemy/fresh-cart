@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
 
-const api = axios.create({
+const API = axios.create({
   baseURL: "https://ecommerce.routemisr.com/api/v1/auth",
 });
 
 // Always attach token dynamically
-api.interceptors.request.use((config) => {
+API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.token = token;
@@ -16,7 +15,7 @@ api.interceptors.request.use((config) => {
 
 export const signin = async (loginData) => {
   try {
-    const { data } = await api.post("/signin", loginData);
+    const { data } = await API.post("/signin", loginData);
     return data;
   } catch (error) {
     console.error(
@@ -28,7 +27,7 @@ export const signin = async (loginData) => {
 };
 export const signup = async (userData) => {
   try {
-    const { data } = await api.post("/signup", userData);
+    const { data } = await API.post("/signup", userData);
     return data;
   } catch (error) {
     console.error(
@@ -39,6 +38,6 @@ export const signup = async (userData) => {
   }
 };
 export const verifyUserToken = async () => {
-  const { data } = await api.get("/verifyToken");
+  const { data } = await API.get("/verifyToken");
   return data;
 };

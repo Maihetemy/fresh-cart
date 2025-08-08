@@ -19,7 +19,7 @@ import Register from "./pages/register/register";
 import NotFound from "./pages/NotFound/NotFound";
 import CartContextProvider from "./context/CartContext";
 import UserTokenContextProvider from "./context/UserContext";
-import Layout from './components/Layout/Layout';
+import Layout from "./components/Layout/Layout";
 function App() {
   const client = new QueryClient();
   let router = createBrowserRouter([
@@ -114,15 +114,15 @@ function App() {
     },
   ]);
   return (
-    <CartContextProvider>
-      <QueryClientProvider client={client}>
-        <UserTokenContextProvider>
+    <UserTokenContextProvider>
+      <CartContextProvider>
+        <QueryClientProvider client={client}>
           <Toaster position="bottom-right" />
           <RouterProvider router={router}></RouterProvider>
           <ReactQueryDevtools />
-        </UserTokenContextProvider>
-      </QueryClientProvider>
-    </CartContextProvider>
+        </QueryClientProvider>
+      </CartContextProvider>
+    </UserTokenContextProvider>
   );
 }
 

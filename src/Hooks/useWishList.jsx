@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addToWishList,
@@ -15,9 +14,10 @@ export default function useWishList() {
     isLoading,
     error,
   } = useQuery({
-    queryKey: queryKey,
+    queryKey,
     queryFn: getUserWishList,
   });
+
   let deleteMutation = useMutation({
     mutationFn: removeFromWishList,
     onSuccess: () => {
