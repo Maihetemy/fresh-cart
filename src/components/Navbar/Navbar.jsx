@@ -79,7 +79,7 @@ export default function Navbar() {
                       <NavLink to={"/categories"}>Categories</NavLink>
                     </li>
                     <li className="mx-2 flex items-center text-sm text-slate-950 font-normal">
-                      <NavLink to={"/about"}>About</NavLink>
+                      <NavLink to={"/allorders"}>All Orders</NavLink>
                     </li>
                     <li className="cart-icon mx-2 flex items-center">
                       <NavLink to={"/wishListPage"}>

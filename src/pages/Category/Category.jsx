@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useProducts from "../../Hooks/useProducts";
 import ProductCardUi from "../../components/ProductCardUI/ProductCardUI";
 import { cartContext } from "../../context/CartContext";
+import NotFound from './../NotFound/NotFound';
 export default function Category() {
   const [categoryProductList, setCategoryProductList] = useState([]);
   let { name } = useParams();
@@ -37,9 +38,7 @@ export default function Category() {
           </div>
         </>
       ) : (
-        <h2 className="text-center my-20 font-bold text-green-950 text-2xl">
-          No Products
-        </h2>
+         <NotFound />
       )}
     </>
   );
